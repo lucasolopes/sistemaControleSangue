@@ -7,4 +7,8 @@ public interface QuantidateTipoSanquineo {
 
     Float getSomaIdade();
 
+    Long getIdade();
+
+    Long getPeso();
+
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import br.com.wk.processo.seletivo.sangue.controller.dto.CandidatosDto;
 import br.com.wk.processo.seletivo.sangue.controller.dto.ImcObesidadePorSexoDto;
 import br.com.wk.processo.seletivo.sangue.controller.dto.ImcPorFaixaIdadeDto;
+import br.com.wk.processo.seletivo.sangue.controller.dto.PossiveisDoadoresDto;
 import br.com.wk.processo.seletivo.sangue.controller.dto.QuantidateTipoSanquineoDto;
 import br.com.wk.processo.seletivo.sangue.controller.form.CandidatosForm;
 import br.com.wk.processo.seletivo.sangue.controller.modelo.Candidatos;
@@ -109,7 +110,7 @@ public class CandidatosServices {
 
         List<QuantidateTipoSanquineoDto> quantidateTipoSanquineo = new ArrayList<>();
 
-        List<QuantidateTipoSanquineo> dadosTipoSanguineo = candidatosRepository.quantidadeTipoSanguineo();
+        List<QuantidateTipoSanquineo> dadosTipoSanguineo = candidatosRepository.listaQuantidadeTipoSanguineo();
 
         for (QuantidateTipoSanquineo dados : dadosTipoSanguineo) {
             Float SomaIdade = dados.getSomaIdade();
@@ -120,4 +121,32 @@ public class CandidatosServices {
         return quantidateTipoSanquineo;
     }
 
+    public List<PossiveisDoadoresDto> possiveisReceptores() {
+        List<PossiveisDoadoresDto> possiveisReceptores = new ArrayList<>();
+        List<QuantidateTipoSanquineo> dadosTipoSanguineo = candidatosRepository.listaQuantidadeTipoSanguineo();
+        Long quantidadeDoadores = 0l;
+
+        for (QuantidateTipoSanquineo dados : dadosTipoSanguineo) {
+            if (dados.getTipoSanguineo().contentEquals("A+") || dados.getTipoSanguineo().contentEquals("B+")
+                    || dados.getTipoSanguineo().contentEquals("AB-")) {
+                quantidadeDoadores = dados.getQuantidade() * 4;
+                possiveisReceptores.add(new PossiveisDoadoresDto(dados.getTipoSanguineo(), quantidadeDoadores));
+            }
+            if (dados.getTipoSanguineo().contentEquals("A-") || dados.getTipoSanguineo().contentEquals("B-")
+                    || dados.getTipoSanguineo().contentEquals("O+")) {
+                quantidadeDoadores = dados.getQuantidade() * 2;
+                possiveisReceptores.add(new PossiveisDoadoresDto(dados.getTipoSanguineo(), quantidadeDoadores));
+            }
+            if (dados.getTipoSanguineo().contentEquals("AB+")) {
+                quantidadeDoadores = dados.getQuantidade() * 8;
+                possiveisReceptores.add(new PossiveisDoadoresDto(dados.getTipoSanguineo(), quantidadeDoadores));
+            }
+            if (dados.getTipoSanguineo().contentEquals("O-")) {
+                quantidadeDoadores = dados.getQuantidade();
+                possiveisReceptores.add(new PossiveisDoadoresDto(dados.getTipoSanguineo(), quantidadeDoadores));
+            }
+        }
+
+        return possiveisReceptores;
+    }
 }

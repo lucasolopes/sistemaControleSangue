@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.wk.processo.seletivo.sangue.controller.dto.CandidatosDto;
 import br.com.wk.processo.seletivo.sangue.controller.dto.ImcObesidadePorSexoDto;
 import br.com.wk.processo.seletivo.sangue.controller.dto.ImcPorFaixaIdadeDto;
+import br.com.wk.processo.seletivo.sangue.controller.dto.PossiveisDoadoresDto;
 import br.com.wk.processo.seletivo.sangue.controller.dto.QuantidateTipoSanquineoDto;
 import br.com.wk.processo.seletivo.sangue.controller.form.CandidatosForm;
 import br.com.wk.processo.seletivo.sangue.controller.repository.CandidatosPorEstado;
@@ -64,6 +65,11 @@ public class CandidatosController {
     @GetMapping("/mediaIdadeTipoSanguineo")
     public ResponseEntity<List<QuantidateTipoSanquineoDto>> mediaIdadeTipoSanguineo() {
         return ResponseEntity.ok().body(candidatosServices.tipoSanguineo());
+    }
+
+    @GetMapping("/quantidadeDoadores")
+    public ResponseEntity<List<PossiveisDoadoresDto>> quantidadeDoadores() {
+        return ResponseEntity.ok().body(candidatosServices.possiveisReceptores());
     }
 
 }

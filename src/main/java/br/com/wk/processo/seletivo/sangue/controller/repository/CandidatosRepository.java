@@ -20,7 +20,10 @@ public interface CandidatosRepository extends JpaRepository<Candidatos, Long> {
 
     Long countBySexo(String sexo);
 
-    @Query(value = "Select count(tipo_Sanguineo) as quantidade, sum(idade) as somaIdade ,tipo_Sanguineo as tipoSanguineo from candidatos group by tipo_Sanguineo", nativeQuery = true)
-    List<QuantidateTipoSanquineo> quantidadeTipoSanguineo();
+    @Query(value = "Select count(tipo_Sanguineo) as quantidade, sum(idade) as somaIdade ,tipo_Sanguineo as tipoSanguineo, idade,peso from candidatos group by tipo_Sanguineo", nativeQuery = true)
+    List<QuantidateTipoSanquineo> listaQuantidadeTipoSanguineo();
+
+    @Query(value = "Select count(tipo_Sanguineo) as quantidade, sum(idade) as somaIdade ,tipo_Sanguineo as tipoSanguineo, idade,peso from candidatos group by tipo_Sanguineo", nativeQuery = true)
+    QuantidateTipoSanquineo quantidadeTipoSanguineo();
 
 }
