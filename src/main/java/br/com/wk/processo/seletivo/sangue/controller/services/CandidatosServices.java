@@ -15,6 +15,7 @@ import br.com.wk.processo.seletivo.sangue.controller.dto.ImcObesidadePorSexoDto;
 import br.com.wk.processo.seletivo.sangue.controller.dto.ImcPorFaixaIdadeDto;
 import br.com.wk.processo.seletivo.sangue.controller.dto.PossiveisDoadoresDto;
 import br.com.wk.processo.seletivo.sangue.controller.dto.QuantidateTipoSanquineoDto;
+import br.com.wk.processo.seletivo.sangue.controller.dto.TiposSanguineos;
 import br.com.wk.processo.seletivo.sangue.controller.form.CandidatosForm;
 import br.com.wk.processo.seletivo.sangue.controller.modelo.Candidatos;
 import br.com.wk.processo.seletivo.sangue.controller.repository.BuscarDadosCandidatos;
@@ -114,39 +115,60 @@ public class CandidatosServices {
 
         for (QuantidateTipoSanquineo dados : dadosTipoSanguineo) {
             Float SomaIdade = dados.getSomaIdade();
-            Long quantidade = dados.getQuantidade();
+            Integer quantidade = dados.getQuantidade();
             Float mediaIdade = SomaIdade / quantidade;
             quantidateTipoSanquineo.add(new QuantidateTipoSanquineoDto(dados.getTipoSanguineo(), mediaIdade));
         }
         return quantidateTipoSanquineo;
     }
 
-    public List<PossiveisDoadoresDto> possiveisReceptores() {
-        List<PossiveisDoadoresDto> possiveisReceptores = new ArrayList<>();
-        List<QuantidateTipoSanquineo> dadosTipoSanguineo = candidatosRepository.listaQuantidadeTipoSanguineo();
-        Long quantidadeDoadores = 0l;
+    public List<PossiveisDoadoresDto> quantidadeReceptores() {
 
-        for (QuantidateTipoSanquineo dados : dadosTipoSanguineo) {
-            if (dados.getTipoSanguineo().contentEquals("A+") || dados.getTipoSanguineo().contentEquals("B+")
-                    || dados.getTipoSanguineo().contentEquals("AB-")) {
-                quantidadeDoadores = dados.getQuantidade() * 4;
-                possiveisReceptores.add(new PossiveisDoadoresDto(dados.getTipoSanguineo(), quantidadeDoadores));
+        String[] tiposSanguineos = TiposSanguineos.todosTipo();
+        List<BuscarDadosCandidatos> dadosCandidatos = candidatosRepository.findAllBy();
+        List<PossiveisDoadoresDto> receptores = new ArrayList<>();
+        for (String tipo : tiposSanguineos) {
+            String[] anticorpos = {};
+            Integer contadorQuantidade = 0;
+            if (tipo == "A+") {
+                anticorpos = TiposSanguineos.APositivoDoadores();
+            } else if (tipo == "A-") {
+                anticorpos = TiposSanguineos.ANegativoDoadores();
+            } else if (tipo == "B+") {
+                anticorpos = TiposSanguineos.BPositivoDoadores();
+            } else if (tipo == "B-") {
+                anticorpos = TiposSanguineos.BNegativoDoadores();
+            } else if (tipo == "O+") {
+                anticorpos = TiposSanguineos.OPositivoDoadores();
+            } else if (tipo == "O-") {
+                anticorpos = TiposSanguineos.ONegativoDoadores();
+            } else if (tipo == "AB+") {
+                anticorpos = TiposSanguineos.ABPositivoDoadores();
+            } else if (tipo == "AB-") {
+                anticorpos = TiposSanguineos.ABNegativoDoadores();
             }
-            if (dados.getTipoSanguineo().contentEquals("A-") || dados.getTipoSanguineo().contentEquals("B-")
-                    || dados.getTipoSanguineo().contentEquals("O+")) {
-                quantidadeDoadores = dados.getQuantidade() * 2;
-                possiveisReceptores.add(new PossiveisDoadoresDto(dados.getTipoSanguineo(), quantidadeDoadores));
+
+            for (BuscarDadosCandidatos candidato : dadosCandidatos) {
+
+                if (verificar(anticorpos, candidato))
+                    contadorQuantidade++;
+
             }
-            if (dados.getTipoSanguineo().contentEquals("AB+")) {
-                quantidadeDoadores = dados.getQuantidade() * 8;
-                possiveisReceptores.add(new PossiveisDoadoresDto(dados.getTipoSanguineo(), quantidadeDoadores));
-            }
-            if (dados.getTipoSanguineo().contentEquals("O-")) {
-                quantidadeDoadores = dados.getQuantidade();
-                possiveisReceptores.add(new PossiveisDoadoresDto(dados.getTipoSanguineo(), quantidadeDoadores));
-            }
+
+            receptores.add(new PossiveisDoadoresDto(tipo, contadorQuantidade));
         }
 
-        return possiveisReceptores;
+        return receptores;
     }
+
+    private Boolean verificar(String[] anticorpos, BuscarDadosCandidatos candidato) {
+        boolean receptorPositivo = false;
+        for (String aux : anticorpos) {
+            if (candidato.getTipoSanguineo().contentEquals(aux.toUpperCase())) {
+                receptorPositivo = true;
+            }
+        }
+        return receptorPositivo;
+    }
+
 }

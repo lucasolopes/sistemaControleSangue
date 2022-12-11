@@ -67,9 +67,9 @@ public class CandidatosController {
         return ResponseEntity.ok().body(candidatosServices.tipoSanguineo());
     }
 
-    @GetMapping("/quantidadeDoadores")
-    public ResponseEntity<List<PossiveisDoadoresDto>> quantidadeDoadores() {
-        return ResponseEntity.ok().body(candidatosServices.possiveisReceptores());
+    @GetMapping("/quantidadeReceptores")
+    public ResponseEntity<List<PossiveisDoadoresDto>> quantidadeReceptores() {
+        return ResponseEntity.ok().body(candidatosServices.quantidadeReceptores());
     }
 
 }

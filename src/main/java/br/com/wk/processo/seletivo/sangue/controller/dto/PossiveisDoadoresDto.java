@@ -2,9 +2,9 @@ package br.com.wk.processo.seletivo.sangue.controller.dto;
 
 public class PossiveisDoadoresDto {
     private String tipoSanguineo;
-    private Long quantidade;
+    private Integer quantidade;
 
-    public PossiveisDoadoresDto(String tipoSanguineo, Long quantidade) {
+    public PossiveisDoadoresDto(String tipoSanguineo, Integer quantidade) {
         this.tipoSanguineo = tipoSanguineo;
         this.quantidade = quantidade;
     }
@@ -13,7 +13,7 @@ public class PossiveisDoadoresDto {
         return tipoSanguineo;
     }
 
-    public Long getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 

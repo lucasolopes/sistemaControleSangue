@@ -9,4 +9,6 @@ public interface BuscarDadosCandidatos {
 
   String getSexo();
 
+  String getTipoSanguineo();
+
 }
