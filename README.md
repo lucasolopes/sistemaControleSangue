@@ -1,9 +1,12 @@
+
 # sistemaControleSangue
 
-para iniciar ele é bem simples
-logo após abrir o projeto você precisará configurar as configurações para o projeto se conectar ao banco de dados para isso abra o arquivo application.properties
-e informe a string do banco, usuário e senha, com isso tudo já está configurado basta só rodar a aplicação.
-
+para iniciar ele é bem simples logo após abrir o projeto você
+precisará configurar as configurações para
+o projeto se conectar ao banco de dados para isso abra
+o arquivo application.properties e informe a string do banco,
+usuário e senha, com isso tudo já está configurado basta só 
+rodar a aplicação.
 
 /candidatos
 (post)
