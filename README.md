@@ -13,6 +13,7 @@ rodar a aplicação.
 Efetua o cadastro de uma lista de candidatos
 /candidatos
 
+/candidatos
 (get)
 Lista candidatos cadastrados (padrao 10 primeiros)
 
