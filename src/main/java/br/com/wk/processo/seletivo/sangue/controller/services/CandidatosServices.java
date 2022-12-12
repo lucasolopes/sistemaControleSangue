@@ -147,10 +147,9 @@ public class CandidatosServices {
             }
 
             for (BuscarDadosCandidatos candidato : dadosCandidatos) {
-
-                if (verificar(anticorpos, candidato))
-                    contadorQuantidade++;
-
+                if (candidato.getIdade() >= 16 && candidato.getPeso() >= 50)
+                    if (verificar(anticorpos, candidato))
+                        contadorQuantidade++;
             }
 
             receptores.add(new PossiveisDoadoresDto(tipo, contadorQuantidade));
