@@ -3,8 +3,6 @@ package br.com.wk.processo.seletivo.sangue.controller.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +32,7 @@ public class CandidatosServices {
         return CandidatosDto.converter(candidatos);
     }
 
-    public void cadastrar(@Valid ArrayList<CandidatosForm> form) {
+    public void cadastrar(List<CandidatosForm> form) {
         form.forEach(c -> {
             Candidatos candidatos = c.converter();
             candidatosRepository.save(candidatos);
