@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.wk.processo.seletivo.sangue.config.security.TokenService;
 import br.com.wk.processo.seletivo.sangue.controller.dto.TokenDto;
 import br.com.wk.processo.seletivo.sangue.controller.form.UsuarioForm;
+import br.com.wk.processo.seletivo.sangue.controller.repository.PerfilRepository;
 import br.com.wk.processo.seletivo.sangue.controller.repository.UsuarioRepository;
 
 @RestController
@@ -34,6 +35,9 @@ public class UsuarioController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private PerfilRepository perfilRepository;
+
     @GetMapping
     public ResponseEntity<?> listar() {
 
@@ -43,7 +47,8 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<TokenDto> cadastrar(@RequestBody @Valid UsuarioForm form) {
 
-        usuarioRepository.save(form.converterUsuario());
+        usuarioRepository.save(form.converterUsuario(perfilRepository));
+
         UsernamePasswordAuthenticationToken dadosLogin = form.converterDadosLogin();
 
         try {
@@ -56,4 +61,5 @@ public class UsuarioController {
             return ResponseEntity.badRequest().build();
         }
     }
+
 }

@@ -32,10 +32,15 @@ public class Usuario implements UserDetails {
     public Usuario() {
     }
 
-    public Usuario(String nome, @Email String email, String senha) {
+    public Usuario(String nome, @Email String email, String senha, Perfil perfil) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.perfis.add(perfil);
+    }
+
+    public void adicionarPerfil(Perfil novo) {
+        this.perfis.add(novo);
     }
 
     @Override
@@ -98,7 +103,7 @@ public class Usuario implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
-        return null;
+        return this.perfis;
     }
 
     @Override
