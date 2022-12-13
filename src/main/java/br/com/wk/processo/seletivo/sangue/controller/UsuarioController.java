@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.wk.processo.seletivo.sangue.config.security.TokenService;
 import br.com.wk.processo.seletivo.sangue.controller.dto.TokenDto;
 import br.com.wk.processo.seletivo.sangue.controller.form.UsuarioForm;
-import br.com.wk.processo.seletivo.sangue.controller.repository.UserRepository;
+import br.com.wk.processo.seletivo.sangue.controller.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/usuario")
@@ -26,7 +26,7 @@ import br.com.wk.processo.seletivo.sangue.controller.repository.UserRepository;
 public class UsuarioController {
 
     @Autowired
-    UserRepository usuarioRepository;
+    UsuarioRepository usuarioRepository;
 
     @Autowired
     private AuthenticationManager authManager;
