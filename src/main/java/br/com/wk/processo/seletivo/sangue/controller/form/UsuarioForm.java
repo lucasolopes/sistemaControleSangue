@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import br.com.wk.processo.seletivo.sangue.controller.modelo.Usuario;
+import br.com.wk.processo.seletivo.sangue.controller.modelo.User;
 
 public class UsuarioForm {
     @NotBlank
@@ -41,8 +41,8 @@ public class UsuarioForm {
         this.senha = senha;
     }
 
-    public Usuario converterUsuario() {
-        return new Usuario(nome, email, new BCryptPasswordEncoder().encode(senha));
+    public User converterUsuario() {
+        return new User(nome, email, new BCryptPasswordEncoder().encode(senha));
     }
 
     public UsernamePasswordAuthenticationToken converterDadosLogin() {
