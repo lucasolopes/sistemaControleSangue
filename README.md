@@ -1,38 +1,70 @@
+# Processo Seletivo Java - WK
 
-# sistemaControleSangue
+## Descrição 
 
-para iniciar ele é bem simples logo após abrir o projeto você
-precisará configurar as configurações para
-o projeto se conectar ao banco de dados para isso abra
-o arquivo application.properties e informe a string do banco,
-usuário e senha, com isso tudo já está configurado basta só 
-rodar a aplicação.
+- Este teste consiste em construir uma camada de serviço, para extraçao de dados muito realizada em bancos de sangue.
 
-/candidatos
-(post)
-Efetua o cadastro de uma lista de candidatos
-/candidatos
 
-/candidatos
-(get)
-Lista candidatos cadastrados (padrao 10 primeiros)
+## Como executar a aplicação 
 
-/candidatos/estado
-(get)
-Retorna quantidade de candidatos na lista em cada estado do Brasil.
+- Você pode executar a aplicação da maneira que quiser e utilizando a IDE de sua preferência. 
+- Caso queira executar a aplicação via linha de comando, execute primeiramente o comando:
 
-/candidatos/imcmedio
-(get)
-Retorna  IMC médio em cada faixa de idade de dez em dez anos: 0 a 10; 11 a 20; 21 a 30, etc.
+                   ./mvnw clean package  para linux.
 
-/candidatos/percentualObesidade
-(get)
-Retorna  o percentual de obesos entre os homens e entre as mulheres.
+                   .\mvnw clean package  para windows.
+- Após isso execute o comando: 
 
-/candidatos/mediaIdadeTipoSanguineo
-(get)
-Retorna  a média de idade para cada tipo sanguíneo.
+                             java -jar <...caminhoParaSeuJar>
+                             
+                             
 
-/candidatos/quantidadeReceptores
-(get)
-Retorna  a quantidade de possíveis doadores para cada tipo sanguíneo receptor.
+## Documentação da API
+
+#### Cadastra todos candidatos
+
+```http
+  POST /candidatos
+```
+
+ | Tipo       | Descrição                           |
+ :--------- | :---------------------------------- |
+ | `JSON` | **Obrigatório**. json de candidatos |
+
+
+#### Retorna os 10 primeiros candidatos.
+
+```http
+  GET /candidatos
+```
+
+#### Retorna quantidade de candidatos na lista em cada estado do Brasil.
+
+```http
+  GET /candidatos/estado
+```
+
+#### Retorna o percentual de obesos entre os homens e entre as mulheres.
+```http
+  GET /candidatos/percentualObesidade
+```
+
+#### Retorna IMC médio em cada faixa de idade de dez em dez anos: 0 a 10; 11 a 20; 21 a 30, etc.
+
+```http
+  GET /candidatos/imcmedio
+```
+
+#### Retorna a média de idade para cada tipo sanguíneo.
+
+```http
+  GET /candidatos/mediaIdadeTipoSanguineo
+```
+
+#### Retorna a quantidade de possíveis doadores para cada tipo sanguíneo receptor.
+
+```http
+  GET /candidatos/quantidadeReceptores
+```
+
+
