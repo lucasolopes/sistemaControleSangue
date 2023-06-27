@@ -4,6 +4,9 @@
 
 - Este teste consiste em construir uma camada de serviço, para extraçao de dados muito realizada em bancos de sangue.
 
+  
+## Requisitos
+- Java 8
 
 ## Como executar a aplicação 
 
