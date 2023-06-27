@@ -25,7 +25,7 @@
                              java -jar <...caminhoParaSeuJar>
 
 - Após inciar o projeto rode o Config.sql para criar o usuario de moderador
-
+- Caso queira alterar a senha codifique ela para sha256
                              
 ## Documentação da API
 
